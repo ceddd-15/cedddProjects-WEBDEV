@@ -2,9 +2,11 @@ import Card from "../components/Card";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import "../styles/Login.css";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import TextArea from "../components/TextArea";
 import slugify from "slugify";
+import { useAuth } from "../contexts/AuthContext.jsx";
+import { useNavigate } from "react-router-dom";
 
 const Inventory = () => {
   const [formData, setFormData] = useState({
@@ -13,9 +15,13 @@ const Inventory = () => {
     description: "",
     price: 0,
   });
+
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState();
   const [slug, setSlug] = useState("");
+
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,12 +42,20 @@ const Inventory = () => {
   };
 
   useEffect(() => {
-    const generatedSlug = slugify(formData.name, {
-      lower: true,
-      trict: true,
-    });
-    setSlug(generatedSlug);
-  }, [formData]);
+    if (formData.name) {
+      const generatedSlug = slugify(formData.name, {
+        lower: true,
+        strict: true,
+      });
+      setSlug(generatedSlug);
+    }
+  }, [formData.name]);
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
 
   return (
     <Card title="Create Product">
