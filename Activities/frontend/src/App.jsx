@@ -1,9 +1,10 @@
 import { AuthProvider } from "./contexts/AuthContext.jsx";
-import Login from "./pages/Login.jsx";
+import AuthPage from "./pages/AuthPage.jsx";
 import "./styles/App.css";
 import Inventory from "./pages/Inventory.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing.jsx";
+// no redirects
 
 function App() {
 return (
@@ -11,7 +12,7 @@ return (
   <AuthProvider>
     <Routes>
       <Route path="/" element={<Landing />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/auth" element={<AuthPage />} />
       <Route path="/inventory" element={<Inventory />} />
     </Routes>
     </AuthProvider>
