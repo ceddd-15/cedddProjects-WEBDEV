@@ -13,8 +13,12 @@ export const authService = {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(DataTransfer.mesage || "Registration failed.");
+      throw new Error(data.message || "Registration failed.");
     }
+
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("user", JSON.stringify(data.user));
+    
     return data;
   },
 
@@ -30,15 +34,19 @@ export const authService = {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.mesage || "Login failed.");
+      throw new Error(data.message || "Login failed.");
     }
+
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("user", JSON.stringify(data.user));
+    
     return data;
   },
 
   async logout() {
     const token = localStorage.getItem("token");
 
-    const response = await fetch(`${API_URL}/logout`, {
+    await fetch(`${API_URL}/logout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -48,12 +56,14 @@ export const authService = {
 
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("cart");
 
-    return response.ok;
+    return true;
   },
+
   getCurrentUser() {
     const userStr = localStorage.getItem("user");
-    return userStr ? JSON.stringify(userStr) : null;
+    return userStr ? JSON.parse(userStr) : null;
   },
 
   getToken() {

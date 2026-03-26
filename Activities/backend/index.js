@@ -3,27 +3,32 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
-import inventoryRoutes from "./routes/inventoryRoutes.js";
+import shopRoutes from "./routes/shopRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
 
 const app = express();
 const PORT = 3000;
 dotenv.config();
-
-// get -> display name, var name = "ced",
-// post -> logic, if username = "ced" password = "123" success else failed
 
 app.use(express.json());
 
 app.use(
   cors({
     origin: "*",
-    methods: ["GET, POST"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
   }),
 );
+
 app.use("/api/auth", authRoutes);
-app.use("/api/inventory", inventoryRoutes);
+app.use("/api/shop", shopRoutes);
+app.use("/api/admin", adminRoutes);
+
+app.use((err, req, res, next) => {
+  console.error("Global error handler:", err);
+  res.status(500).json({ message: err.message });
+});
 
 app.listen(PORT, () => {
   connectDB();
-  console.log(`Server is runnning on PORT: ${PORT}`);
+  console.log(`Server running on PORT: ${PORT}`);
 });

@@ -7,11 +7,13 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+      trim: true,
     },
     email: {
       type: String,
       required: true,
       unique: true,
+      lowercase: true,
     },
     password: {
       type: String,
@@ -22,15 +24,29 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "moderator", "admin"],
       default: "user",
     },
+    avatar: {
+      type: String,
+    },
+    phone: {
+      type: String,
+    },
+    addresses: [{
+      fullName: String,
+      phone: String,
+      address: String,
+      city: String,
+      postalCode: String,
+      isDefault: Boolean,
+    }],
   },
   { timestamps: true },
 );
 
-//Middleware
-userSchema.pre("save", async function (next) {
-  //short circuiting
-  if (!this.isModified("password")) return next();
-  this.password = await bcrypt.hash(this.password, 10); //salt
+userSchema.pre("save", async function () {
+  if (!this.isModified("password")) {
+    return;
+  }
+  this.password = await bcrypt.hash(this.password, 10);
 });
 
 export default mongoose.model("User", userSchema);

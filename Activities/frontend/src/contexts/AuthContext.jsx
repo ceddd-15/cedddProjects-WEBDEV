@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useCallback } from "react";
 import { authService } from "../services/authService";
 
 const AuthContext = createContext(null);
@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
       setUser(currentUser);
     }
     setLoading(false);
-  }, []); // mounting
+  }, []);
 
   const login = async (credentials) => {
     const data = await authService.login(credentials);
@@ -28,6 +28,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     await authService.logout();
+    localStorage.removeItem("cart");
     setUser(null);
   };
 

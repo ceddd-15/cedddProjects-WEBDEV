@@ -1,38 +1,80 @@
 .btn {
+  position: relative;
   width: 100%;
   padding: 0.875rem 1.5rem;
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   border: none;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s;
-  display: flex;
+  transition: all var(--transition-normal) ease;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn:active::before {
+  width: 300px;
+  height: 300px;
 }
 
 .btn-primary {
-  background-color: var(--primary-blue);
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
   color: white;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: var(--hover-blue);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(30, 144, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.45);
 }
 
 .btn-secondary {
-  background-color: var(--secondary-green);
+  background: linear-gradient(135deg, var(--secondary-emerald) 0%, var(--secondary-emerald-dark) 100%);
   color: white;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background-color: var(--hover-green);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.45);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--primary-blue);
+  border: 2px solid var(--primary-blue);
+}
+
+.btn-outline:hover:not(:disabled) {
+  background: var(--primary-blue);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-medium);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: var(--background-light);
+  color: var(--text-dark);
 }
 
 .btn:disabled {
@@ -41,9 +83,16 @@
   transform: none;
 }
 
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: var(--radius-md);
+}
+
 .spinner {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   border: 2px solid rgba(255, 255, 255, 0.3);
   border-top-color: white;
   border-radius: 50%;
