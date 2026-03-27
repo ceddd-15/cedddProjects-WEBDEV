@@ -142,6 +142,11 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  const resetCart = useCallback(() => {
+    setCart({ items: [], total: 0 });
+    setCartCount(0);
+  }, []);
+
   const value = {
     cart,
     cartCount,
@@ -151,6 +156,7 @@ export const CartProvider = ({ children }) => {
     removeFromCart,
     clearCart,
     refreshCart: fetchCart,
+    resetCart,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

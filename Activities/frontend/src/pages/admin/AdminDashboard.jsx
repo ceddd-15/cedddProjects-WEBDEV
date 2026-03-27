@@ -30,37 +30,40 @@ export default function AdminDashboard() {
     }
   };
 
-  if (loading) return <AdminLayout><div className="loading">Loading...</div></AdminLayout>;
+  if (loading)
+    return (
+      <AdminLayout>
+        <div className="loading">Loading...</div>
+      </AdminLayout>
+    );
 
   return (
     <AdminLayout>
       <div className="admin-dashboard">
         <div className="stats-grid">
           <div className="stat-card">
-            <div className="stat-icon products">📦</div>
             <div className="stat-info">
               <span className="stat-value">{data.stats.totalProducts}</span>
               <span className="stat-label">Total Products</span>
             </div>
           </div>
           <div className="stat-card">
-            <div className="stat-icon orders">🛒</div>
             <div className="stat-info">
               <span className="stat-value">{data.stats.totalOrders}</span>
               <span className="stat-label">Total Orders</span>
             </div>
           </div>
           <div className="stat-card">
-            <div className="stat-icon users">👥</div>
             <div className="stat-info">
               <span className="stat-value">{data.stats.totalUsers}</span>
               <span className="stat-label">Total Users</span>
             </div>
           </div>
           <div className="stat-card">
-            <div className="stat-icon revenue">💰</div>
             <div className="stat-info">
-              <span className="stat-value">${data.stats.revenue.toFixed(2)}</span>
+              <span className="stat-value">
+                ${data.stats.revenue.toFixed(2)}
+              </span>
               <span className="stat-label">Total Revenue</span>
             </div>
           </div>
@@ -87,8 +90,12 @@ export default function AdminDashboard() {
                   <td>#{order._id.slice(-6).toUpperCase()}</td>
                   <td>
                     <div className="customer-info">
-                      <span className="customer-name">{order.user?.username || "Unknown"}</span>
-                      <span className="customer-email">{order.user?.email}</span>
+                      <span className="customer-name">
+                        {order.user?.username || "Unknown"}
+                      </span>
+                      <span className="customer-email">
+                        {order.user?.email}
+                      </span>
                     </div>
                   </td>
                   <td>${order.total.toFixed(2)}</td>

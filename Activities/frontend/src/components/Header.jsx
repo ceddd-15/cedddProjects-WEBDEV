@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useCart } from "../contexts/CartContext";
+import { useLoading } from "../contexts/LoadingContext";
 import "../styles/shop/Header.css";
 import "../styles/ConfirmModal.css";
 import { productService } from "../services/shopService";
@@ -13,6 +14,7 @@ export default function Header() {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const { cartCount } = useCart();
+  const { startLoading, stopLoading } = useLoading();
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -57,7 +59,10 @@ export default function Header() {
 
   const handleLogoutConfirm = async () => {
     setShowLogoutModal(false);
+    startLoading("Logging out...");
     await logout();
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    stopLoading();
     navigate("/");
   };
 

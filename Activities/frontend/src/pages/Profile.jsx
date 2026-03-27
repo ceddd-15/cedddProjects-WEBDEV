@@ -4,6 +4,7 @@ import Header from "../components/Header.jsx";
 import { ConfirmModal } from "../components/ConfirmModal.jsx";
 import { AlertModal } from "../components/AlertModal.jsx";
 import { useAuth } from "../contexts/AuthContext";
+import { useLoading } from "../contexts/LoadingContext";
 import { userService } from "../services/shopService";
 import "../styles/shop/Profile.css";
 import "../styles/ConfirmModal.css";
@@ -11,6 +12,7 @@ import "../styles/ConfirmModal.css";
 export default function Profile() {
   const navigate = useNavigate();
   const { logout } = useAuth();
+  const { startLoading, stopLoading } = useLoading();
   const [activeTab, setActiveTab] = useState("info");
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -122,7 +124,10 @@ export default function Profile() {
 
   const handleLogoutConfirm = async () => {
     setShowLogoutModal(false);
+    startLoading("Logging out...");
     await logout();
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    stopLoading();
     navigate("/");
   };
 

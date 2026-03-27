@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { useLoading } from "../contexts/LoadingContext";
 import "../styles/shop/Landing.css";
 import logo from "../imageAssets/cycling_icon.png";
 
 export default function AuthPage() {
   const navigate = useNavigate();
   const { login } = useAuth();
+  const { startLoading, stopLoading } = useLoading();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -25,13 +27,16 @@ export default function AuthPage() {
     e.preventDefault();
     setError("");
     setLoading(true);
+    startLoading("Logging in...");
     try {
       await login({ email: formData.email, password: formData.password });
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      stopLoading();
       navigate("/");
     } catch (err) {
       setError(err.message || "Login failed");
-    } finally {
       setLoading(false);
+      stopLoading();
     }
   };
 

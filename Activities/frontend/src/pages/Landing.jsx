@@ -105,13 +105,13 @@ export default function Landing() {
           <h2 className="section-title">Shop by Category</h2>
           <div className="categories-grid">
             {[
-              { name: "Frames", icon: "🚴", category: "frames" },
-              { name: "Wheels", icon: "⚫", category: "wheels" },
-              { name: "Groupsets", icon: "⚙️", category: "groupsets" },
-              { name: "Components", icon: "🔧", category: "components" },
-              { name: "Accessories", icon: "🧢", category: "accessories" },
-              { name: "Clothing", icon: "👕", category: "clothing" },
-              { name: "Parts", icon: "🔩", category: "parts" },
+              { name: "Frames", category: "frames" },
+              { name: "Wheels", category: "wheels" },
+              { name: "Groupsets", category: "groupsets" },
+              { name: "Components", category: "components" },
+              { name: "Accessories", category: "accessories" },
+              { name: "Clothing", category: "clothing" },
+              { name: "Parts", category: "parts" },
             ].map((cat) => (
               <Link
                 key={cat.category}
@@ -184,168 +184,6 @@ export default function Landing() {
           </div>
         </div>
       </footer>
-
-      <style>{`
-        .hero-section {
-          background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%);
-          color: white;
-          padding: 80px 20px;
-          text-align: center;
-        }
-        .hero-content {
-          max-width: 800px;
-          margin: 0 auto;
-        }
-        .hero-content h1 {
-          font-size: 3rem;
-          font-weight: 800;
-          margin-bottom: 20px;
-        }
-        .hero-content p {
-          font-size: 1.2rem;
-          opacity: 0.9;
-          margin-bottom: 30px;
-        }
-        .hero-actions {
-          display: flex;
-          gap: 16px;
-          justify-content: center;
-        }
-        .hero-btn {
-          padding: 14px 32px;
-          border-radius: 8px;
-          font-weight: 600;
-          text-decoration: none;
-          transition: all 0.2s;
-        }
-        .hero-btn.primary {
-          background: white;
-          color: var(--primary);
-        }
-        .hero-btn.primary:hover {
-          background: #f5f5f5;
-          transform: translateY(-2px);
-        }
-        .hero-btn.secondary {
-          background: transparent;
-          color: white;
-          border: 2px solid white;
-        }
-        .hero-btn.secondary:hover {
-          background: rgba(255,255,255,0.1);
-        }
-        .categories-section {
-          padding: 60px 0;
-          background: white;
-        }
-        .categories-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-          gap: 16px;
-        }
-        .category-card-landing {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 12px;
-          padding: 24px 16px;
-          background: var(--bg-gray);
-          border-radius: 12px;
-          text-decoration: none;
-          transition: all 0.2s;
-        }
-        .category-card-landing:hover {
-          transform: translateY(-4px);
-          box-shadow: var(--shadow-md);
-          background: white;
-        }
-        .category-icon {
-          font-size: 2rem;
-        }
-        .category-name {
-          font-weight: 600;
-          color: var(--text-primary);
-          font-size: 0.9rem;
-        }
-        .features-section {
-          padding: 60px 0;
-          background: var(--bg-gray);
-        }
-        .features-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-          gap: 32px;
-        }
-        .feature-item {
-          text-align: center;
-        }
-        .feature-icon {
-          font-size: 2.5rem;
-          margin-bottom: 12px;
-        }
-        .feature-item h3 {
-          font-size: 1.1rem;
-          font-weight: 600;
-          color: var(--text-primary);
-          margin-bottom: 4px;
-        }
-        .feature-item p {
-          color: var(--text-secondary);
-          font-size: 0.9rem;
-        }
-        .footer {
-          background: #1a1a1a;
-          color: white;
-          padding: 60px 0 20px;
-        }
-        .footer-content {
-          display: grid;
-          grid-template-columns: 2fr repeat(3, 1fr);
-          gap: 40px;
-          margin-bottom: 40px;
-        }
-        .footer-brand h3 {
-          font-size: 1.5rem;
-          margin-bottom: 12px;
-        }
-        .footer-brand p {
-          color: #888;
-          line-height: 1.6;
-        }
-        .footer-links h4 {
-          font-size: 1rem;
-          margin-bottom: 16px;
-          color: white;
-        }
-        .footer-links a {
-          display: block;
-          color: #888;
-          margin-bottom: 8px;
-          font-size: 0.9rem;
-        }
-        .footer-links a:hover {
-          color: white;
-        }
-        .footer-bottom {
-          padding-top: 20px;
-          border-top: 1px solid #333;
-          text-align: center;
-          color: #666;
-          font-size: 0.85rem;
-        }
-        @media (max-width: 768px) {
-          .hero-content h1 {
-            font-size: 2rem;
-          }
-          .hero-actions {
-            flex-direction: column;
-          }
-          .footer-content {
-            grid-template-columns: 1fr;
-            gap: 24px;
-          }
-        }
-      `}</style>
     </div>
   );
 }

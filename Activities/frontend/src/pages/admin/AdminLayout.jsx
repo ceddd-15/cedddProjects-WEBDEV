@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { authService } from "../../services/authService";
 import { ConfirmModal } from "../../components/ConfirmModal";
+import { useAuth } from "../../contexts/AuthContext";
+import { useLoading } from "../../contexts/LoadingContext";
 import "../../styles/ConfirmModal.css";
 
 const menuItems = [
@@ -14,13 +16,9 @@ const menuItems = [
 export default function AdminLayout({ children }) {
   const location = useLocation();
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+  const { user, logout } = useAuth();
+  const { startLoading, stopLoading } = useLoading();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
-
-  useEffect(() => {
-    const currentUser = authService.getCurrentUser();
-    setUser(currentUser);
-  }, []);
 
   const handleLogout = () => {
     setShowLogoutModal(true);
@@ -28,8 +26,11 @@ export default function AdminLayout({ children }) {
 
   const handleLogoutConfirm = async () => {
     setShowLogoutModal(false);
-    await authService.logout();
-    navigate("/login");
+    startLoading("Logging out...");
+    await logout();
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    stopLoading();
+    navigate("/");
   };
 
   const handleLogoutCancel = () => {

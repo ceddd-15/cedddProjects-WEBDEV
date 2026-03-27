@@ -1,11 +1,13 @@
 import { createContext, useContext, useState, useEffect, useCallback } from "react";
 import { authService } from "../services/authService";
+import { useCart } from "./CartContext";
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const cartContext = useCart();
 
   useEffect(() => {
     const currentUser = authService.getCurrentUser();
@@ -30,6 +32,9 @@ export const AuthProvider = ({ children }) => {
     await authService.logout();
     localStorage.removeItem("cart");
     setUser(null);
+    if (cartContext?.resetCart) {
+      cartContext.resetCart();
+    }
   };
 
   const value = {
