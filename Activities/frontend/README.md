@@ -87,7 +87,7 @@ frontend/
 | Login | `/login` | User login |
 | Register | `/register` | User registration |
 
-### Admin Pages
+### Admin Pages (Moderator is just a placeholder)
 | Page | Route | Description |
 |------|-------|-------------|
 | AdminDashboard | `/admin` | Dashboard overview |
